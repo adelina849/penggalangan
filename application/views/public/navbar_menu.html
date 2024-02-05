@@ -1,0 +1,91 @@
+<div class="collapse navbar-collapse" id="main-nav">
+	<ul class="nav navbar-nav navbar-nav-margin-left">
+		<?php
+			$get_menu = "SELECT * FROM tb_menu_website WHERE kode_kantor = '".$gbl_kode_kantor."' AND kode_menu_utama = '' ORDER BY idx_menu ASC ; ";
+			
+			$get_menu = $this->M_gl_pengaturan->view_query_general($get_menu);
+			if(!empty($get_menu))
+			{
+				$list_result = $get_menu->result();
+				foreach($list_result as $row)
+				{
+				?>
+				
+					<!-- <li class="dropdown active"> -->
+					<li class="dropdown">
+						<!-- <a href="<?php echo base_url();?>pages/<?php echo $row->slug;?>" class="dropdown-toggle" data-toggle="dropdown"> -->
+						<?php
+						if($row->isJenis == 'BERANDA')
+						{
+							$url = base_url();
+						}
+						else
+						{
+							$url = base_url().'pages/'.$row->slug;
+						}
+						?>
+						
+						<a href="<?php echo $url;?>">
+							<?php echo $row->nama_menu;?>
+							<!-- <span class="caret"></span> -->
+						</a>
+						<!--
+						<ul class="dropdown-menu">
+						  <li class="active"><a href="index.html">Home page</a></li>
+						  <li><a href="pricing.html">Pricing</a></li>
+						  <li><a href="tutors.html">Tutors</a></li>
+						  <li><a href="survey.html">Survey</a></li>
+						  <li><a href="website-forum.html">Forum Home</a></li>
+						  <li><a href="website-forum-category.html">Forum Category</a></li>
+						  <li><a href="website-forum-thread.html">Forum Thread</a></li>
+						  <li><a href="website-blog.html">Blog Listing</a></li>
+						  <li><a href="website-blog-post.html">Blog Post</a></li>
+						  <li><a href="website-contact.html">Contact</a></li>
+						</ul>
+						-->
+					</li>
+				
+				<?php
+				}
+			}
+		?>
+	
+	<!--
+	  <li class="dropdown active">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <span class="caret"></span></a>
+		<ul class="dropdown-menu">
+		  <li class="active"><a href="index.html">Home page</a></li>
+		  <li><a href="pricing.html">Pricing</a></li>
+		  <li><a href="tutors.html">Tutors</a></li>
+		  <li><a href="survey.html">Survey</a></li>
+		  <li><a href="website-forum.html">Forum Home</a></li>
+		  <li><a href="website-forum-category.html">Forum Category</a></li>
+		  <li><a href="website-forum-thread.html">Forum Thread</a></li>
+		  <li><a href="website-blog.html">Blog Listing</a></li>
+		  <li><a href="website-blog-post.html">Blog Post</a></li>
+		  <li><a href="website-contact.html">Contact</a></li>
+		</ul>
+	  </li>
+	-->
+	  
+	</ul>
+	<div class="navbar-right">
+	  <ul class="nav navbar-nav navbar-nav-bordered navbar-nav-margin-right">
+		<!-- user -->
+		<li class="dropdown user">
+		  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<img src="images/people/110/guy-6.jpg" alt="" class="img-circle" /> Bill<span class="caret"></span>
+		  </a>
+		  <ul class="dropdown-menu" role="menu">
+			<li><a href="website-student-dashboard.html"><i class="fa fa-bar-chart-o"></i> Dashboard</a></li>
+			<li><a href="website-student-courses.html"><i class="fa fa-mortar-board"></i> My Courses</a></li>
+			<li><a href="website-student-profile.html"><i class="fa fa-user"></i> Profile</a></li>
+			<li><a href="login.html"><i class="fa fa-sign-out"></i> Logout</a></li>
+		  </ul>
+		</li>
+		<!-- // END user -->
+	  </ul>
+	  <a href="login.html" class="navbar-btn btn btn-primary">Log In</a>
+	</div>
+  </div>
+  <!-- /.navbar-collapse -->

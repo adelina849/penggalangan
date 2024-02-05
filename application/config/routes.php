@@ -54,3 +54,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'C_pg_home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+//PUBLIC
+	//PAGES
+		$route['pages'] = "C_pg_home/detail_halaman";
+		$route['pages/(:any)'] = 'C_pg_home/detail_halaman';
+		$route['pages/(:any)/(:any)'] = 'C_pg_home/detail_halaman';
+	//PAGES
+//PUBLIC

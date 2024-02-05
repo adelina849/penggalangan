@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-	$gbl_kode_kantor = 'TK1';
+	$data = array('gbl_kode_kantor'=>$gbl_kode_kantor); // kode kantor ambil dari kontroloer
 ?>
 <html class="transition-navbar-scroll top-navbar-xlarge bottom-footer" lang="en">
 
@@ -175,188 +175,148 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="main-nav">
-        <ul class="nav navbar-nav navbar-nav-margin-left">
+		<!-- NAVBAR -->
 			<?php
-				$get_menu = "SELECT * FROM tb_menu_website WHERE kode_kantor = '".$gbl_kode_kantor."' AND kode_menu_utama = '' ORDER BY idx_menu ASC ; ";
-				
-				$get_menu = $this->M_gl_pengaturan->view_query_general($get_menu);
-				if(!empty($get_menu))
-				{
-					$list_result = $get_menu->result();
-					foreach($list_result as $row)
-					{
-					?>
-					
-						<!-- <li class="dropdown active"> -->
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<?php echo $row->nama_menu;?> 
-								<!-- <span class="caret"></span> -->
-							</a>
-							<!--
-							<ul class="dropdown-menu">
-							  <li class="active"><a href="index.html">Home page</a></li>
-							  <li><a href="pricing.html">Pricing</a></li>
-							  <li><a href="tutors.html">Tutors</a></li>
-							  <li><a href="survey.html">Survey</a></li>
-							  <li><a href="website-forum.html">Forum Home</a></li>
-							  <li><a href="website-forum-category.html">Forum Category</a></li>
-							  <li><a href="website-forum-thread.html">Forum Thread</a></li>
-							  <li><a href="website-blog.html">Blog Listing</a></li>
-							  <li><a href="website-blog-post.html">Blog Post</a></li>
-							  <li><a href="website-contact.html">Contact</a></li>
-							</ul>
-							-->
-						</li>
-					
-					<?php
-					}
-				}
+				$this->load->view('public/navbar_menu.html',$data);
 			?>
-		
-		<!--
-          <li class="dropdown active">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li class="active"><a href="index.html">Home page</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="tutors.html">Tutors</a></li>
-              <li><a href="survey.html">Survey</a></li>
-              <li><a href="website-forum.html">Forum Home</a></li>
-              <li><a href="website-forum-category.html">Forum Category</a></li>
-              <li><a href="website-forum-thread.html">Forum Thread</a></li>
-              <li><a href="website-blog.html">Blog Listing</a></li>
-              <li><a href="website-blog-post.html">Blog Post</a></li>
-              <li><a href="website-contact.html">Contact</a></li>
-            </ul>
-          </li>
-		-->
-		  
-        </ul>
-        <div class="navbar-right">
-          <ul class="nav navbar-nav navbar-nav-bordered navbar-nav-margin-right">
-            <!-- user -->
-            <li class="dropdown user">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="images/people/110/guy-6.jpg" alt="" class="img-circle" /> Bill<span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="website-student-dashboard.html"><i class="fa fa-bar-chart-o"></i> Dashboard</a></li>
-                <li><a href="website-student-courses.html"><i class="fa fa-mortar-board"></i> My Courses</a></li>
-                <li><a href="website-student-profile.html"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a href="login.html"><i class="fa fa-sign-out"></i> Logout</a></li>
-              </ul>
-            </li>
-            <!-- // END user -->
-          </ul>
-          <a href="login.html" class="navbar-btn btn btn-primary">Log In</a>
-        </div>
-      </div>
+		<!-- NAVBAR -->
       <!-- /.navbar-collapse -->
 
     </div>
   </div>
 
-  <div class="parallax cover overlay cover-image-full home">
-    <img class="parallax-layer" src="<?php echo base_url();?>assets/theme-oc/images/photodune-4161018-group-of-students-m.jpg" alt="Learning Cover" />
-    <div class="parallax-layer overlay overlay-full overlay-bg-white bg-transparent" data-speed="8" data-opacity="true">
+	<div id="pgae_content">
+	<!-- BANNER -->
 		<?php
-			$get_banner = "
-						SELECT * 
-						FROM tb_images 
-						WHERE kode_kantor = '".$gbl_kode_kantor."' 
-						AND group_by = 'BANNERFRONTEND'
-						ORDER BY idx ASC;
-						";
-			$get_banner = $this->M_gl_pengaturan->view_query_general($get_banner);
-			if(!empty($get_banner))
+			if((!empty($this->uri->segment(2,0))) && ($this->uri->segment(2,0)!= "")  )
 			{
-				$list_result = $get_banner->result();
-				foreach($list_result as $row)
-				{
-				?>
-				
-					<div class="v-center">
-						<div class="page-section overlay-bg-white-strong relative paper-shadow" data-z="1">
-							<h1 class="text-display-2 margin-v-0-15 display-inline-block">
-								<?php echo $row->img_nama;?>
-							</h1>
-							<p class="text-subhead">
-								<?php echo $row->ket_img;?>
-							</p>
-							
-							<!--
-							<a class="btn btn-green-500 btn-lg paper-shadow" data-hover-z="2" data-animated data-toggle="modal" href="#modal-overlay-signup">Sign Up - Only &dollar;19.00/mo</a>
-							-->
-							
-						</div>
-					</div>
-				
-				<?php
-				}
-			}
-		?>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="page-section-heading">
-      <h2 class="text-display-1">BEBEZA</h2>
-      <p class="lead text-muted">Berdaya Bersama Zakat merupakan konsep pemberdayaan masyarakat dengan memanfaatkan potensi zakat secara menyeluruh. Berikut adalah konsep BEBEZA secara keseluruhan.</p>
-    </div>
-    <div class="row" data-toggle="gridalicious">
-
-		
-		<?php
-			$get_featured = "
-						SELECT * 
-						FROM tb_images 
-						WHERE kode_kantor = '".$gbl_kode_kantor."' 
-						AND group_by = 'FEATURFRONTEND'
-						ORDER BY idx ASC;
-						";
-			$get_featured = $this->M_gl_pengaturan->view_query_general($get_featured);
-			if(!empty($get_featured))
-			{
-				$list_result = $get_featured->result();
-				foreach($list_result as $row)
-				{
-					$link_img = $row->base_url.''.$row->img_url.''.$row->img_file;
-				?>
-				
-					<div class="media">
-						<div class="media-left padding-none">
-							<div class="bg-green-300 text-white">
-								<div class="panel-body">
-									<!-- <i class="fa fa-film fa-2x fa-fw"> -->
-									<i class="fa fa-5x fa-fw">
-										<img style="width:100%;" class="parallax-layer" src="<?php echo $link_img;?>" alt="Learning Cover" />
-									</i>
-								</div>
+				echo'
+					<div class="parallax bg-white page-section">
+						<div class="container parallax-layer" data-opacity="true">
+						  <div class="media v-middle">
+							<div class="media-body">
+							  <h1 class="text-display-2 margin-none">'.$data_halaman->nama_menu.'</h1>
+							  <p class="text-light lead">'.$data_halaman->ket_menu.'</p>
 							</div>
-						</div>
-						<div class="media-body">
-						  <div class="panel panel-default">
-							<div class="panel-body">
-							  <div class="text-headline">
-								<?php echo $row->img_nama;?>
+							<div class="media-right">
+							  <div class="width-100 text-right">
+								<div class="btn-group">
+								  <a class="btn btn-white" href="website-directory-grid.html"><i class="fa fa-th"></i></a>
+								  <a class="btn btn-grey-900" href="website-directory-list.html"><i class="fa fa-list"></i></a>
+								</div>
 							  </div>
-							  <p>
-								<?php echo $row->ket_img;?>
-							  </p>
 							</div>
 						  </div>
 						</div>
-					</div>
+					  </div>
+				';
 				
-				<?php
+				if($data_halaman->img_url == '')
+				{
+					$src = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
 				}
+				else
+				{
+					$src = $data_halaman->base_url.''.$data_halaman->img_url.''.$data_halaman->img_file;
+				}
+				
+				echo'
+					<div class="page-section">
+					  <div class="row">
+
+						<div class="col-md-9">
+						  <div class="panel panel-default paper-shadow" data-z="0.5">
+							<div class="panel-body">
+
+							  <div class="media media-clearfix-xs">
+								<div class="media-left text-center">
+								  <div class="cover width-150 width-100pc-xs overlay cover-image-full hover margin-v-0-10" style="border:1px solid black;padding:0%;">
+									
+									<span class="img icon-block height-130 bg-primary"></span>
+									
+									<span class="overlay overlay-full padding-none icon-block bg-primary">
+										<span class="v-center">
+											<!-- <i class="fa fa-css3"></i> -->
+											
+												
+												<img style="width:100%;" src="'.$src.'" alt="'.$src.'" />
+											
+										</span>
+									</span>
+									
+									<!-- <a href="website-course.html" class="overlay overlay-full overlay-hover overlay-bg-white"> -->
+									<a href="#" class="overlay overlay-full overlay-hover overlay-bg-white">
+									  <span class="v-center">
+											<!-- <span class="btn btn-circle btn-primary btn-lg"><i class="fa fa-graduation-cap"></i></span> -->
+									  </span>
+									</a>
+								  </div>
+								</div>
+								<div class="media-body">
+								  <!-- <h4 class="text-headline margin-v-5-0">'.$data_halaman->nama_menu.'</h4> -->
+								  <!-- <p class="small"> -->
+									<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
+									<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
+									<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
+									<!-- <span class="fa fa-fw fa-star-o text-yellow-800"></span> -->
+									<!-- <span class="fa fa-fw fa-star-o text-yellow-800"></span> -->
+								  <!-- </p> -->
+								  <p>'.$data_halaman->isi_halaman.'</p>
+
+								  <hr class="margin-v-8" />
+								  <div class="media v-middle">
+									<div class="media-left">
+									  <img src="images/people/50/guy-5.jpg" alt="People" class="img-circle width-40" />
+									</div>
+									<div class="media-body">
+									  <h4><a href="">Adrian Demian</a>
+										<br/>
+									  </h4>
+									  Instructor
+									</div>
+								  </div>
+
+								</div>
+							  </div>
+
+							</div>
+						  </div>
+
+
+						  <!-- <ul class="pagination margin-top-none"> -->
+							<!-- <li class="disabled"><a href="#">&laquo;</a></li> -->
+							<!-- <li class="active"><a href="#">1</a></li> -->
+							<!-- <li><a href="#">2</a></li> -->
+							<!-- <li><a href="#">3</a></li> -->
+							<!-- <li><a href="#">&raquo;</a></li> -->
+						  <!-- </ul> -->
+
+						  <br/>
+						  <br/>
+
+						</div>
+				';
+						
+						//<!-- side_featured.html -->
+						$this->load->view('public/side_featured.html',$data);
+						//<!-- side_featured.html -->
+					
+				echo'
+					  </div>
+					</div>
+				';
+				
+				//echo $data_halaman->isi_halaman;
+			}
+			else
+			{
+				$this->load->view('public/banner.html',$data);
+				$this->load->view('public/featured.html',$data);
 			}
 		?>
-    </div>
-
-  </div>
+	<!-- FEATURED -->
+	</div>
+  
   <br/>
 
   <!-- Footer OnPage-->

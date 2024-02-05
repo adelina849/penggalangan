@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="page-section-heading">
+      <h2 class="text-display-1">BEBEZA</h2>
+      <p class="lead text-muted">Berdaya Bersama Zakat merupakan konsep pemberdayaan masyarakat dengan memanfaatkan potensi zakat secara menyeluruh. Berikut adalah konsep BEBEZA secara keseluruhan.</p>
+    </div>
+    <div class="row" data-toggle="gridalicious">
+
+		
+		<?php
+			$get_featured = "
+						SELECT * 
+						FROM tb_images 
+						WHERE kode_kantor = '".$gbl_kode_kantor."' 
+						AND group_by = 'FEATURFRONTEND'
+						ORDER BY idx ASC;
+						";
+			$get_featured = $this->M_gl_pengaturan->view_query_general($get_featured);
+			if(!empty($get_featured))
+			{
+				$list_result = $get_featured->result();
+				foreach($list_result as $row)
+				{
+					$link_img = $row->base_url.''.$row->img_url.''.$row->img_file;
+				?>
+				
+					<div class="media">
+						<div class="media-left padding-none">
+							<div class="bg-green-300 text-white">
+								<div class="panel-body">
+									<!-- <i class="fa fa-film fa-2x fa-fw"> -->
+									<i class="fa fa-5x fa-fw">
+										<img style="width:100%;" class="parallax-layer" src="<?php echo $link_img;?>" alt="Learning Cover" />
+									</i>
+								</div>
+							</div>
+						</div>
+						<div class="media-body">
+						  <div class="panel panel-default">
+							<div class="panel-body">
+							  <div class="text-headline">
+								<?php echo $row->img_nama;?>
+							  </div>
+							  <p>
+								<?php echo $row->ket_img;?>
+							  </p>
+							</div>
+						  </div>
+						</div>
+					</div>
+				
+				<?php
+				}
+			}
+		?>
+    </div>
+
+  </div>
