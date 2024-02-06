@@ -188,13 +188,14 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<div id="pgae_content">
 	<!-- BANNER -->
 		<?php
-			if( ((!empty($this->uri->segment(2,0))) && ($this->uri->segment(2,0)!= "")) or ($this->uri->segment(2,0) == 'funding') )
+			if(!empty($page_content))
 			{
-				if(!empty($page_content))
-				{
-					$this->load->view('public/'.$page_content.'.html',$data);
-				}
-				else
+				$this->load->view('public/'.$page_content.'.html',$data);
+			}
+			else
+			{
+		
+				if( ((!empty($this->uri->segment(2,0))) && ($this->uri->segment(2,0)!= "")) )
 				{
 					echo'
 						<div class="parallax bg-white page-section">
@@ -316,11 +317,11 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 					$this->load->view('public/featured.html',$data);
 					//echo $data_halaman->isi_halaman;
 				}
-			}
-			else
-			{
-				$this->load->view('public/banner.html',$data);
-				$this->load->view('public/featured.html',$data);
+				else
+				{
+					$this->load->view('public/banner.html',$data);
+					$this->load->view('public/featured.html',$data);
+				}
 			}
 		?>
 	<!-- FEATURED -->
