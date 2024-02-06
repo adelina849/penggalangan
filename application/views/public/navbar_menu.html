@@ -19,6 +19,10 @@
 						{
 							$url = base_url();
 						}
+						elseif($row->isJenis == 'FUNDING')
+						{
+							$url = base_url().''.$row->slug;
+						}
 						else
 						{
 							$url = base_url().'pages/'.$row->slug;

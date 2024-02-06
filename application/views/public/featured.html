@@ -20,7 +20,15 @@
 				$list_result = $get_featured->result();
 				foreach($list_result as $row)
 				{
-					$link_img = $row->base_url.''.$row->img_url.''.$row->img_file;
+					if($row->img_file == '')
+					{
+						$link_img = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
+					}
+					else
+					{
+						$link_img = $row->base_url.''.$row->img_url.''.$row->img_file;
+					}
+					
 				?>
 				
 					<div class="media">

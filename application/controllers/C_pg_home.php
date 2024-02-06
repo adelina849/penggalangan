@@ -25,6 +25,7 @@ class C_pg_home extends CI_Controller {
 		//$this->load->view('welcome_message');
 		
 		$gbl_kode_kantor = 'TK1';
+		
 		$data = array('gbl_kode_kantor'=>$gbl_kode_kantor);
 		$this->load->view('public/container.html',$data);
 	}
@@ -79,6 +80,81 @@ class C_pg_home extends CI_Controller {
 		{
 			header('Location: '.base_url());
 		}
+	}
+
+	public function view_list_funding()
+	{
+		$gbl_kode_kantor = 'TK1';
+		
+		//GET HALAMAN
+			$get_halaman = "
+							SELECT 
+								A.*
+								,COALESCE(B.img_file,'') AS img_file
+								,COALESCE(B.img_url,'') AS img_url
+								,COALESCE(B.ext_file,'') AS ext_file
+								,COALESCE(B.base_url,'') AS base_url
+							FROM tb_menu_website AS A
+							LEFT JOIN 
+							(
+								SELECT 
+										kode_kantor,id,group_by
+										,MAX(img_file) AS img_file
+										,MAX(img_url) AS img_url
+										,MAX(ext_file) AS ext_file
+										,MAX(base_url) AS base_url
+								FROM tb_images 
+								WHERE kode_kantor = '".$gbl_kode_kantor."'
+								GROUP BY kode_kantor,id,group_by
+							)
+							AS B ON A.kode_kantor = B.kode_kantor AND A.id_menu = B.id AND B.group_by = 'BANNERPAGE'
+							WHERE A.kode_kantor = '".$gbl_kode_kantor."' 
+							AND A.isJenis = 'FUNDING' ; ";
+			
+			$data_halaman = $this->M_gl_pengaturan->view_query_general($get_halaman);
+			if(!empty($data_halaman))
+			{
+				$data_halaman = $data_halaman->row();
+			}
+			else
+			{
+				$data_halaman = false;
+			}
+		//GET HALAMAN
+		
+		
+		if((!empty($_GET['dari'])) && ($_GET['dari']!= "")  )
+		{
+			$dari = $_GET['dari'];
+			$sampai = $_GET['sampai'];
+		}
+		else
+		{
+			$dari = date("Y-m-d");
+			$sampai = date("Y-m-d");
+		}
+		
+		if((!empty($_GET['cari'])) && ($_GET['cari']!= "")  )
+		{
+			$cari = str_replace("'","",$_GET['cari']) ;
+		}
+		else
+		{
+			$cari = "";
+		}
+		
+		$list_funding = "
+						SELECT * 
+						FROM tb_artikel_frontend AS A
+						WHERE A.kode_kantor = '".$gbl_kode_kantor."' 
+						AND A.group_by = 'PENGGALANGAN' 
+						AND A.tgl_artikel BETWEEN '".$dari."' AND '".$sampai."'
+						AND (A.judul LIKE '%".$cari."%' OR A.sumber LIKE '%".$cari."%')
+						ORDER BY A.tgl_ins DESC";
+		$list_funding = $this->M_gl_pengaturan->view_query_general($list_funding);
+		
+		$data = array('gbl_kode_kantor' => $gbl_kode_kantor,'page_content'=>'page_funding','list_funding' => $list_funding, 'data_halaman' => $data_halaman);
+		$this->load->view('public/container.html',$data);
 	}
 }
 

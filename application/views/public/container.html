@@ -188,125 +188,134 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<div id="pgae_content">
 	<!-- BANNER -->
 		<?php
-			if((!empty($this->uri->segment(2,0))) && ($this->uri->segment(2,0)!= "")  )
+			if( ((!empty($this->uri->segment(2,0))) && ($this->uri->segment(2,0)!= "")) or ($this->uri->segment(2,0) == 'funding') )
 			{
-				echo'
-					<div class="parallax bg-white page-section">
-						<div class="container parallax-layer" data-opacity="true">
-						  <div class="media v-middle">
-							<div class="media-body">
-							  <h1 class="text-display-2 margin-none">'.$data_halaman->nama_menu.'</h1>
-							  <p class="text-light lead">'.$data_halaman->ket_menu.'</p>
-							</div>
-							<div class="media-right">
-							  <div class="width-100 text-right">
-								<div class="btn-group">
-								  <a class="btn btn-white" href="website-directory-grid.html"><i class="fa fa-th"></i></a>
-								  <a class="btn btn-grey-900" href="website-directory-list.html"><i class="fa fa-list"></i></a>
-								</div>
-							  </div>
-							</div>
-						  </div>
-						</div>
-					  </div>
-				';
-				
-				if($data_halaman->img_url == '')
+				if(!empty($page_content))
 				{
-					$src = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
+					$this->load->view('public/'.$page_content.'.html',$data);
 				}
 				else
 				{
-					$src = $data_halaman->base_url.''.$data_halaman->img_url.''.$data_halaman->img_file;
-				}
-				
-				echo'
-					<div class="page-section">
-					  <div class="row">
-
-						<div class="col-md-9">
-						  <div class="panel panel-default paper-shadow" data-z="0.5">
-							<div class="panel-body">
-
-							  <div class="media media-clearfix-xs">
-								<div class="media-left text-center">
-								  <div class="cover width-150 width-100pc-xs overlay cover-image-full hover margin-v-0-10" style="border:1px solid black;padding:0%;">
-									
-									<span class="img icon-block height-130 bg-primary"></span>
-									
-									<span class="overlay overlay-full padding-none icon-block bg-primary">
-										<span class="v-center">
-											<!-- <i class="fa fa-css3"></i> -->
-											
-												
-												<img style="width:100%;" src="'.$src.'" alt="'.$src.'" />
-											
-										</span>
-									</span>
-									
-									<!-- <a href="website-course.html" class="overlay overlay-full overlay-hover overlay-bg-white"> -->
-									<a href="#" class="overlay overlay-full overlay-hover overlay-bg-white">
-									  <span class="v-center">
-											<!-- <span class="btn btn-circle btn-primary btn-lg"><i class="fa fa-graduation-cap"></i></span> -->
-									  </span>
-									</a>
+					echo'
+						<div class="parallax bg-white page-section">
+							<div class="container parallax-layer" data-opacity="true">
+							  <div class="media v-middle">
+								<div class="media-body">
+								  <h1 class="text-display-2 margin-none">'.$data_halaman->nama_menu.'</h1>
+								  <p class="text-light lead">'.$data_halaman->ket_menu.'</p>
+								</div>
+								<div class="media-right">
+								  <div class="width-100 text-right">
+									<div class="btn-group">
+									  <a class="btn btn-white" href="website-directory-grid.html"><i class="fa fa-th"></i></a>
+									  <a class="btn btn-grey-900" href="website-directory-list.html"><i class="fa fa-list"></i></a>
+									</div>
 								  </div>
 								</div>
-								<div class="media-body">
-								  <!-- <h4 class="text-headline margin-v-5-0">'.$data_halaman->nama_menu.'</h4> -->
-								  <!-- <p class="small"> -->
-									<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
-									<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
-									<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
-									<!-- <span class="fa fa-fw fa-star-o text-yellow-800"></span> -->
-									<!-- <span class="fa fa-fw fa-star-o text-yellow-800"></span> -->
-								  <!-- </p> -->
-								  <p>'.$data_halaman->isi_halaman.'</p>
+							  </div>
+							</div>
+						  </div>
+					';
+					
+					if($data_halaman->img_url == '')
+					{
+						$src = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
+					}
+					else
+					{
+						$src = $data_halaman->base_url.''.$data_halaman->img_url.''.$data_halaman->img_file;
+					}
+					
+					echo'
+						<div class="page-section">
+						  <div class="row">
 
-								  <hr class="margin-v-8" />
-								  <div class="media v-middle">
-									<div class="media-left">
-									  <img src="images/people/50/guy-5.jpg" alt="People" class="img-circle width-40" />
+							<div class="col-md-9">
+							  <div class="panel panel-default paper-shadow" data-z="0.5">
+								<div class="panel-body">
+
+								  <div class="media media-clearfix-xs">
+									<div class="media-left text-center">
+									  <div class="cover width-150 width-100pc-xs overlay cover-image-full hover margin-v-0-10" style="border:1px solid black;padding:0%;">
+										
+										<span class="img icon-block height-130 bg-primary"></span>
+										
+										<span class="overlay overlay-full padding-none icon-block bg-primary">
+											<span class="v-center">
+												<!-- <i class="fa fa-css3"></i> -->
+												
+													
+													<img style="width:100%;" src="'.$src.'" alt="'.$src.'" />
+												
+											</span>
+										</span>
+										
+										<!-- <a href="website-course.html" class="overlay overlay-full overlay-hover overlay-bg-white"> -->
+										<a href="#" class="overlay overlay-full overlay-hover overlay-bg-white">
+										  <span class="v-center">
+												<!-- <span class="btn btn-circle btn-primary btn-lg"><i class="fa fa-graduation-cap"></i></span> -->
+										  </span>
+										</a>
+									  </div>
 									</div>
 									<div class="media-body">
-									  <h4><a href="">Adrian Demian</a>
-										<br/>
-									  </h4>
-									  Instructor
+									  <!-- <h4 class="text-headline margin-v-5-0">'.$data_halaman->nama_menu.'</h4> -->
+									  <!-- <p class="small"> -->
+										<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
+										<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
+										<!-- <span class="fa fa-fw fa-star text-yellow-800"></span> -->
+										<!-- <span class="fa fa-fw fa-star-o text-yellow-800"></span> -->
+										<!-- <span class="fa fa-fw fa-star-o text-yellow-800"></span> -->
+									  <!-- </p> -->
+									  <p>'.$data_halaman->isi_halaman.'</p>
+
+									  <hr class="margin-v-8" />
+									  <div class="media v-middle">
+										<div class="media-left">
+										  <img src="images/people/50/guy-5.jpg" alt="People" class="img-circle width-40" />
+										</div>
+										<div class="media-body">
+										  <h4><a href="">Adrian Demian</a>
+											<br/>
+										  </h4>
+										  Instructor
+										</div>
+									  </div>
+
 									</div>
 								  </div>
 
 								</div>
 							  </div>
 
+
+							  <!-- <ul class="pagination margin-top-none"> -->
+								<!-- <li class="disabled"><a href="#">&laquo;</a></li> -->
+								<!-- <li class="active"><a href="#">1</a></li> -->
+								<!-- <li><a href="#">2</a></li> -->
+								<!-- <li><a href="#">3</a></li> -->
+								<!-- <li><a href="#">&raquo;</a></li> -->
+							  <!-- </ul> -->
+
+							  <br/>
+							  <br/>
+
 							</div>
-						  </div>
-
-
-						  <!-- <ul class="pagination margin-top-none"> -->
-							<!-- <li class="disabled"><a href="#">&laquo;</a></li> -->
-							<!-- <li class="active"><a href="#">1</a></li> -->
-							<!-- <li><a href="#">2</a></li> -->
-							<!-- <li><a href="#">3</a></li> -->
-							<!-- <li><a href="#">&raquo;</a></li> -->
-						  <!-- </ul> -->
-
-						  <br/>
-						  <br/>
-
-						</div>
-				';
+					';
+							
+							//<!-- side_featured.html -->
+							$this->load->view('public/side_featured.html',$data);
+							//<!-- side_featured.html -->
 						
-						//<!-- side_featured.html -->
-						$this->load->view('public/side_featured.html',$data);
-						//<!-- side_featured.html -->
+					echo'
+						  </div>
+						</div>
+					';
 					
-				echo'
-					  </div>
-					</div>
-				';
-				
-				//echo $data_halaman->isi_halaman;
+					
+					$this->load->view('public/featured.html',$data);
+					//echo $data_halaman->isi_halaman;
+				}
 			}
 			else
 			{

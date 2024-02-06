@@ -1,22 +1,36 @@
-<div class="parallax cover overlay cover-image-full home">
-    <img class="parallax-layer" src="<?php echo base_url();?>assets/theme-oc/images/photodune-4161018-group-of-students-m.jpg" alt="Learning Cover" />
-    <div class="parallax-layer overlay overlay-full overlay-bg-white bg-transparent" data-speed="8" data-opacity="true">
-		<?php
-			$get_banner = "
-						SELECT * 
-						FROM tb_images 
-						WHERE kode_kantor = '".$gbl_kode_kantor."' 
-						AND group_by = 'BANNERFRONTEND'
-						ORDER BY idx ASC;
-						";
-			$get_banner = $this->M_gl_pengaturan->view_query_general($get_banner);
-			if(!empty($get_banner))
+<?php
+	$get_banner = "
+				SELECT * 
+				FROM tb_images 
+				WHERE kode_kantor = '".$gbl_kode_kantor."' 
+				AND group_by = 'BANNERFRONTEND'
+				ORDER BY idx ASC;
+				";
+	$get_banner = $this->M_gl_pengaturan->view_query_general($get_banner);
+	if(!empty($get_banner))
+	{
+		$list_result = $get_banner->result();
+		foreach($list_result as $row)
+		{
+			
+			if($row->img_file == '')
 			{
-				$list_result = $get_banner->result();
-				foreach($list_result as $row)
-				{
-				?>
-				
+				$link_img = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
+			}
+			else
+			{
+				$link_img = $row->base_url.''.$row->img_url.''.$row->img_file;
+			}
+		
+		?>
+
+			<div class="parallax cover overlay cover-image-full home">
+					
+					<!-- <img class="parallax-layer" src="<?php echo base_url();?>assets/theme-oc/images/photodune-4161018-group-of-students-m.jpg" alt="Learning Cover" /> -->
+					
+					<img class="parallax-layer" src="<?php echo $link_img;?>" alt="Learning Cover" />
+					
+				<div class="parallax-layer overlay overlay-full overlay-bg-white bg-transparent" data-speed="8" data-opacity="true">
 					<div class="v-center">
 						<div class="page-section overlay-bg-white-strong relative paper-shadow" data-z="1">
 							<h1 class="text-display-2 margin-v-0-15 display-inline-block">
@@ -31,11 +45,10 @@
 							-->
 							
 						</div>
-					</div>
-				
-				<?php
-				}
-			}
-		?>
-    </div>
-  </div>
+					</div>	
+				</div>
+			  </div>
+		<?php
+		}
+	}
+?>
