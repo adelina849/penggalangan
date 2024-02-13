@@ -94,6 +94,7 @@ class C_pg_home extends CI_Controller {
 								,COALESCE(B.img_url,'') AS img_url
 								,COALESCE(B.ext_file,'') AS ext_file
 								,COALESCE(B.base_url,'') AS base_url
+								
 							FROM tb_menu_website AS A
 							LEFT JOIN 
 							(
@@ -127,11 +128,13 @@ class C_pg_home extends CI_Controller {
 		{
 			$dari = $_GET['dari'];
 			$sampai = $_GET['sampai'];
+			$ins_qry_between = " AND A.tgl_artikel BETWEEN '".$dari."' AND '".$sampai."'";
 		}
 		else
 		{
 			$dari = date("Y-m-d");
 			$sampai = date("Y-m-d");
+			$ins_qry_between = "";
 		}
 		
 		if((!empty($_GET['cari'])) && ($_GET['cari']!= "")  )
@@ -144,17 +147,45 @@ class C_pg_home extends CI_Controller {
 		}
 		
 		$list_funding = "
-						SELECT * 
+						SELECT 
+							A.* 
+							,DATEDIFF(A.tgl_selesai_penggalangan,DATE(NOW())) AS sisa_waktu
+							
+							,SUBSTRING_INDEX(A.wil_prov,'|',1) AS kode_prov
+							,SUBSTRING_INDEX(A.wil_prov,'|',-1) AS nama_prov
+							
+							,SUBSTRING_INDEX(A.wil_kabkot,'|',1) AS kode_kabkot
+							,SUBSTRING_INDEX(A.wil_kabkot,'|',-1) AS nama_kabkot
+							
+							,SUBSTRING_INDEX(A.wil_kec,'|',1) AS kode_kec
+							,SUBSTRING_INDEX(A.wil_kec,'|',-1) AS nama_kec
+							
+							,SUBSTRING_INDEX(A.wil_des,'|',1) AS kode_des
+							,SUBSTRING_INDEX(A.wil_des,'|',-1) AS nama_des
+							
 						FROM tb_artikel_frontend AS A
 						WHERE A.kode_kantor = '".$gbl_kode_kantor."' 
 						AND A.group_by = 'PENGGALANGAN' 
-						AND A.tgl_artikel BETWEEN '".$dari."' AND '".$sampai."'
+						".$ins_qry_between."
 						AND (A.judul LIKE '%".$cari."%' OR A.sumber LIKE '%".$cari."%')
-						ORDER BY A.tgl_ins DESC";
+						ORDER BY A.tgl_ins DESC LIMIT 0,50";
+		//echo $list_funding;
 		$list_funding = $this->M_gl_pengaturan->view_query_general($list_funding);
+		
+		/*
+		if(!empty($list_funding))
+		{
+			$list_result = $list_funding->result();
+			foreach($list_result as $row)
+			{
+				echo $row->judul;
+			}
+		}
+		*/
 		
 		$data = array('gbl_kode_kantor' => $gbl_kode_kantor,'page_content'=>'page_funding','list_funding' => $list_funding, 'data_halaman' => $data_halaman);
 		$this->load->view('public/container.html',$data);
+		
 	}
 }
 

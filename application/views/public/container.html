@@ -190,7 +190,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<?php
 			if(!empty($page_content))
 			{
-				$this->load->view('public/'.$page_content.'.html',$data);
+				//$this->load->view('public/'.$page_content.'.html',$data);
+				$this->load->view('public/page_funding.html',$data);
 			}
 			else
 			{
