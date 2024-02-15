@@ -73,7 +73,7 @@
 							  </div>
 							</div>
 							<div class="media-body">
-							  <h4 class="text-headline margin-v-5-0"><a href="">'.$row->judul.'</a></h4>
+							  <h4 class="text-headline margin-v-5-0"><a href="'.base_url().'funding-detail/'.$row->slug.'?token='.md5($row->id_artikel).'">'.$row->judul.'</a></h4>
 							  <p class="small">
 								- Pengglangan Sampai : '.tanggal($row->tgl_selesai_penggalangan).' ('.$row->sisa_waktu.') Hari lagi
 								<br/>

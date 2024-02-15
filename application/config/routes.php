@@ -65,5 +65,9 @@ $route['translate_uri_dashes'] = FALSE;
 	//PENGGALANGAN DANA
 		$route['funding'] = "C_pg_home/view_list_funding";
 		$route['funding/(:any)'] = 'C_pg_home/view_list_funding';
+		
+		$route['funding-detail'] = "C_pg_home/view_detail_funding";
+		$route['funding-detail/(:any)'] = 'C_pg_home/view_detail_funding';
+		$route['funding-detail/(:any)/(:any)'] = 'C_pg_home/view_detail_funding';
 	//PENGGALANGAN DANA
 //PUBLIC

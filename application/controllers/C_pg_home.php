@@ -187,5 +187,55 @@ class C_pg_home extends CI_Controller {
 		$this->load->view('public/container.html',$data);
 		
 	}
+	public function view_detail_funding()
+	{
+		$gbl_kode_kantor = 'TK1';
+		$slug = $this->uri->segment(2,0);
+		
+		if((!empty($_GET['token'])) && ($_GET['token']!= "")  )
+		{
+			$token = str_replace("'","",$_GET['token']) ;
+			$detail_funding = "
+							SELECT 
+								A.* 
+								,DATEDIFF(A.tgl_selesai_penggalangan,DATE(NOW())) AS sisa_waktu
+								
+								,SUBSTRING_INDEX(A.wil_prov,'|',1) AS kode_prov
+								,SUBSTRING_INDEX(A.wil_prov,'|',-1) AS nama_prov
+								
+								,SUBSTRING_INDEX(A.wil_kabkot,'|',1) AS kode_kabkot
+								,SUBSTRING_INDEX(A.wil_kabkot,'|',-1) AS nama_kabkot
+								
+								,SUBSTRING_INDEX(A.wil_kec,'|',1) AS kode_kec
+								,SUBSTRING_INDEX(A.wil_kec,'|',-1) AS nama_kec
+								
+								,SUBSTRING_INDEX(A.wil_des,'|',1) AS kode_des
+								,SUBSTRING_INDEX(A.wil_des,'|',-1) AS nama_des
+								
+							FROM tb_artikel_frontend AS A
+							WHERE A.kode_kantor = '".$gbl_kode_kantor."' 
+							AND A.group_by = 'PENGGALANGAN'
+							AND MD5(A.id_artikel) = '".$token."'
+							ORDER BY A.tgl_ins DESC LIMIT 0,1";
+			//echo $list_funding;
+			$detail_funding = $this->M_gl_pengaturan->view_query_general($detail_funding);
+			
+			if(!empty($detail_funding))
+			{
+				//echo $slug;
+				$detail_funding = $detail_funding->row();
+				$data = array('gbl_kode_kantor' => $gbl_kode_kantor,'page_content'=>'page_detail_funding','detail_funding' => $detail_funding);
+				$this->load->view('public/container.html',$data);
+			}
+			else
+			{
+				header('Location: '.base_url().'funding');
+			}
+		}
+		else
+		{
+			header('Location: '.base_url().'funding');
+		}
+	}
 }
 

@@ -191,7 +191,14 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 			if(!empty($page_content))
 			{
 				//$this->load->view('public/'.$page_content.'.html',$data);
-				$this->load->view('public/page_funding.html',$data);
+				if($page_content == 'page_funding')
+				{
+					$this->load->view('public/page_funding.html',$data);
+				}
+				else
+				{
+					$this->load->view('public/page_detail_funding.html',$data);
+				}
 			}
 			else
 			{
