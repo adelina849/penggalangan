@@ -70,4 +70,12 @@ $route['translate_uri_dashes'] = FALSE;
 		$route['funding-detail/(:any)'] = 'C_pg_home/view_detail_funding';
 		$route['funding-detail/(:any)/(:any)'] = 'C_pg_home/view_detail_funding';
 	//PENGGALANGAN DANA
+	
+	//LOGIN
+		$route['view-login'] = "C_pg_home/view_login";
+		$route['view-login/(:any)'] = 'C_pg_home/view_login';
+		
+		$route['view-register'] = "C_pg_home/view_register";
+		$route['view-register/(:any)'] = 'C_pg_home/view_register';
+	//LOGIN
 //PUBLIC

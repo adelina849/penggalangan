@@ -237,5 +237,19 @@ class C_pg_home extends CI_Controller {
 			header('Location: '.base_url().'funding');
 		}
 	}
+	
+	public function view_login()
+	{
+		$gbl_kode_kantor = 'TK1';
+		$data = array('gbl_kode_kantor' => $gbl_kode_kantor);
+		$this->load->view('public/login.html',$data);
+	}
+	
+	public function view_register()
+	{
+		$gbl_kode_kantor = 'TK1';
+		$data = array('gbl_kode_kantor' => $gbl_kode_kantor);
+		$this->load->view('public/sign-up.html',$data);
+	}
 }
 

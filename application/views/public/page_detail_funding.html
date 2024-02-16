@@ -11,6 +11,7 @@
 		$src = $detail_funding->base_url.''.$detail_funding->img_url_banner.''.$detail_funding->img_file_banner;
 		$src_thumb = $detail_funding->base_url.''.$detail_funding->img_url_banner.''.$detail_funding->img_file_thumb;
 	}
+	
 
 ?>
 
@@ -250,6 +251,8 @@
             <div class="panel-body">
               <p class="text-caption">
                 <!-- <i class="fa fa-clock-o fa-fw"></i> 4 hrs &nbsp; -->
+				<i class="fa fa-list-alt fa-fw"></i> <b><?php echo strtoupper($detail_funding->kategori);?></b>
+                <br/>
                 <i class="fa fa-calendar fa-fw"></i> <?php echo tanggal($detail_funding->tgl_mulai_penggalangan);?>
                 <br/>
                 <i class="fa fa-user fa-fw"></i> Sumber: <?php echo ($detail_funding->sumber);?>
